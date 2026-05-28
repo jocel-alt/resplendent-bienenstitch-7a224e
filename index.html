@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Jocel Cubeta · AI Agent Testing & QA Services</title>
+<meta name="description" content="Done-for-you AI agent quality assurance for small businesses. Catch failures before your customers do. Starting at $499.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dg:#1C3A2A;--forest:#2D5040;--olive:#6B7A3E;--mint:#A8C5A0;--mintl:#D4EAD0;
+  --lav:#C5C0E0;--lavl:#EAE8F5;--lavm:#9B96C8;--cream:#F5F2E8;--white:#FDFCF9;
+  --td:#1A2418;--tm:#3D4F38;--tmuted:#7A8C75;--bs:rgba(107,122,62,.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--td);line-height:1.7;font-size:15px;font-weight:300}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(28,58,42,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(168,197,160,.18);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--mintl);letter-spacing:.04em;text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:.06em;color:rgba(168,197,160,.55);text-decoration:none;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--mint)}
+.nav-cta{background:var(--mint);color:var(--dg)!important;padding:8px 20px;border-radius:20px;font-weight:500!important;transition:all .2s!important}
+.nav-cta:hover{background:var(--mintl)!important;transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-hamburger span{width:22px;height:1.5px;background:var(--mint);border-radius:2px;transition:all .3s}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:linear-gradient(140deg,var(--dg) 0%,#243D2E 50%,#2A3045 100%);display:flex;align-items:center;padding:100px 48px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-80px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(168,197,160,.07) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-120px;left:-60px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(197,192,224,.06) 0%,transparent 65%);pointer-events:none}
+.hero-inner{max-width:1020px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);border:1px solid rgba(168,197,160,.35);padding:7px 16px;border-radius:20px;margin-bottom:24px}
+.hero-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--mint);animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.5vw,68px);font-weight:300;line-height:1.06;color:var(--white);margin-bottom:22px}
+h1 em{font-style:italic;color:var(--mint)}
+.hero-sub{font-size:15px;font-weight:300;color:rgba(212,234,208,.6);line-height:1.85;max-width:480px;margin-bottom:40px}
+.hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--mint);color:var(--dg);font-size:13px;font-weight:500;padding:14px 28px;border-radius:30px;text-decoration:none;transition:all .22s}
+.btn-primary:hover{background:var(--mintl);transform:translateY(-2px);box-shadow:0 8px 24px rgba(168,197,160,.3)}
+.btn-ghost{font-size:13px;color:rgba(168,197,160,.65);text-decoration:none;letter-spacing:.04em;border-bottom:1px solid rgba(168,197,160,.3);padding-bottom:2px;transition:all .2s}
+.btn-ghost:hover{color:var(--mint);border-color:var(--mint)}
+
+/* HERO RIGHT */
+.hero-cards{display:flex;flex-direction:column;gap:14px}
+.hcard{background:rgba(255,255,255,.06);border:1px solid rgba(168,197,160,.18);border-radius:18px;padding:22px 24px;backdrop-filter:blur(8px)}
+.hcard.accent{background:rgba(168,197,160,.09);border-color:rgba(168,197,160,.28)}
+.hcard.lav{background:rgba(197,192,224,.07);border-color:rgba(197,192,224,.22)}
+.hcard-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(168,197,160,.5);margin-bottom:10px}
+.stat-row{display:flex;gap:0}
+.stat-block{text-align:center;flex:1;padding:0 8px}
+.stat-block+.stat-block{border-left:1px solid rgba(168,197,160,.15)}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--mintl);line-height:1;display:block}
+.stat-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(168,197,160,.45);margin-top:3px}
+.trust-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.trust-chip{font-size:11px;color:rgba(168,197,160,.6);border:1px solid rgba(168,197,160,.2);border-radius:20px;padding:4px 12px}
+
+/* ── SECTIONS ── */
+.section{padding:96px 48px}
+.section.cream{background:var(--cream)}
+.section.white{background:var(--white)}
+.section.dark{background:var(--dg)}
+.section-inner{max-width:1020px;margin:0 auto}
+.section-inner.narrow{max-width:760px}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.eline{width:28px;height:1px;background:var(--olive)}
+.etxt{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--olive)}
+.dark .eline{background:var(--lavm)}
+.dark .etxt{color:var(--lavm)}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.8vw,52px);font-weight:300;line-height:1.1;color:var(--dg);margin-bottom:16px}
+.section-title em{font-style:italic;color:var(--olive)}
+.dark .section-title{color:var(--mintl)}
+.dark .section-title em{color:var(--lavm)}
+.section-lead{font-size:15px;font-weight:300;color:var(--tm);line-height:1.85;max-width:580px;margin-bottom:52px}
+.dark .section-lead{color:rgba(212,234,208,.55)}
+
+/* ── LOGOS / SOCIAL PROOF ── */
+.proof-strip{background:var(--dg);padding:28px 48px}
+.proof-inner{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:48px;flex-wrap:wrap;justify-content:center}
+.proof-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(168,197,160,.4);white-space:nowrap}
+.proof-items{display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center}
+.proof-item{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;color:rgba(168,197,160,.35);letter-spacing:.04em;white-space:nowrap}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:52px}
+.about-img-wrap{position:relative}
+.about-img-box{background:linear-gradient(135deg,var(--dg),#2A3045);border-radius:24px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.about-img-box::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(168,197,160,.12),transparent 60%)}
+.about-monogram{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:300;color:rgba(168,197,160,.18);line-height:1;user-select:none}
+.about-badge{position:absolute;bottom:-18px;right:-18px;background:var(--white);border:1px solid var(--bs);border-radius:16px;padding:16px 20px;box-shadow:0 8px 32px rgba(28,58,42,.12)}
+.about-badge-n{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--dg);line-height:1}
+.about-badge-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tmuted)}
+.about-text h3{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;line-height:1.15;color:var(--dg);margin-bottom:20px}
+.about-text h3 em{font-style:italic;color:var(--olive)}
+.about-body{font-size:14px;color:var(--tm);line-height:1.9;margin-bottom:14px}
+.about-quals{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:8px}
+.about-qual{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--tm)}
+.about-qual::before{content:'✦';color:var(--olive);font-size:10px;flex-shrink:0;margin-top:3px}
+
+/* ── WHAT I TEST ── */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+.test-card{background:var(--white);border:1px solid var(--bs);border-radius:18px;padding:28px 24px;position:relative;overflow:hidden;transition:all .25s}
+.test-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,58,42,.09)}
+.test-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--olive),var(--lavm));opacity:0;transition:opacity .25s}
+.test-card:hover::after{opacity:1}
+.test-icon{font-size:24px;margin-bottom:14px}
+.test-title{font-size:14px;font-weight:500;color:var(--dg);margin-bottom:8px}
+.test-body{font-size:13px;color:var(--tmuted);line-height:1.72}
+
+/* ── HOW IT WORKS ── */
+.process-track{position:relative;margin-top:52px;display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.process-track::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,var(--olive),var(--lavm));z-index:0}
+.proc-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1}
+.proc-dot{width:56px;height:56px;border-radius:50%;background:var(--white);border:1.5px solid var(--olive);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--olive)}
+.proc-step.active .proc-dot{background:var(--dg);border-color:var(--dg);color:var(--mint)}
+.proc-title{font-size:13px;font-weight:500;color:var(--dg);margin-bottom:4px}
+.proc-sub{font-size:11px;color:var(--tmuted);line-height:1.6}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.price-card{background:var(--white);border:1px solid var(--bs);border-radius:22px;padding:32px 26px;display:flex;flex-direction:column;transition:all .25s}
+.price-card:hover{box-shadow:0 16px 48px rgba(28,58,42,.1);transform:translateY(-4px)}
+.price-card.featured{background:var(--dg);border:none}
+.price-rec{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:var(--mint);color:var(--dg);padding:5px 12px;border-radius:20px;margin-bottom:18px;width:fit-content}
+.price-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--dg);margin-bottom:2px}
+.price-card.featured .price-name{color:var(--mintl)}
+.price-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--dg);line-height:1;margin-bottom:4px}
+.price-card.featured .price-num{color:var(--mintl)}
+.price-num sup{font-size:22px;vertical-align:top;margin-top:10px;display:inline-block}
+.price-tag{font-size:11px;color:var(--tmuted);margin-bottom:20px}
+.price-card.featured .price-tag{color:rgba(168,197,160,.5)}
+.price-div{border:none;border-top:1px solid var(--bs);margin-bottom:18px}
+.price-card.featured .price-div{border-color:rgba(168,197,160,.18)}
+.price-feats{list-style:none;flex:1}
+.price-feat{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--tm);padding:4px 0}
+.price-card.featured .price-feat{color:rgba(212,234,208,.8)}
+.price-feat::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--olive);flex-shrink:0;margin-top:7px}
+.price-card.featured .price-feat::before{background:var(--mint)}
+.price-btn{margin-top:24px;padding:13px;border-radius:30px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:block;transition:all .2s;letter-spacing:.02em}
+.price-btn.outline{border:1px solid var(--bs);color:var(--dg);background:transparent}
+.price-btn.outline:hover{background:var(--cream)}
+.price-btn.solid{background:var(--mint);color:var(--dg);border:none}
+.price-btn.solid:hover{background:var(--mintl)}
+
+/* ── WHAT'S INCLUDED ── */
+.include-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.inc-card{border:1px solid var(--bs);border-radius:18px;overflow:hidden;transition:all .25s}
+.inc-card:hover{box-shadow:0 10px 32px rgba(28,58,42,.08)}
+.inc-head{padding:22px 26px;background:linear-gradient(135deg,var(--dg),var(--forest));display:flex;align-items:center;gap:14px}
+.inc-icon{width:38px;height:38px;border-radius:10px;background:rgba(168,197,160,.18);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.inc-htitle{font-size:14px;font-weight:500;color:var(--mintl)}
+.inc-hsub{font-size:11px;color:rgba(168,197,160,.5);margin-top:2px}
+.inc-body{padding:22px 26px;background:var(--cream)}
+.inc-list{list-style:none}
+.inc-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--tm);padding:3px 0}
+.inc-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--olive);flex-shrink:0;margin-top:7px}
+
+/* ── TESTIMONIALS ── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.testi-card{background:rgba(255,255,255,.05);border:1px solid rgba(168,197,160,.18);border-radius:18px;padding:28px 24px;transition:all .25s}
+.testi-card:hover{background:rgba(168,197,160,.07)}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:rgba(168,197,160,.3);line-height:1;margin-bottom:8px}
+.testi-body{font-size:13px;color:rgba(212,234,208,.7);line-height:1.8;font-style:italic;margin-bottom:18px}
+.testi-author{font-size:12px;color:var(--mint);font-weight:500}
+.testi-biz{font-size:11px;color:rgba(168,197,160,.4)}
+
+/* ── FAQ ── */
+.faq-list{margin-top:52px}
+.faq-item{border-bottom:1px solid var(--bs);padding:24px 0;cursor:pointer}
+.faq-q{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;font-size:15px;font-weight:400;color:var(--dg);margin-bottom:0}
+.faq-qn{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--mint);line-height:1.1;flex-shrink:0;min-width:28px}
+.faq-chevron{font-size:12px;color:var(--olive);transition:transform .25s;flex-shrink:0;margin-top:3px}
+.faq-a{font-size:13px;color:var(--tmuted);line-height:1.85;padding-left:42px;margin-top:0;max-height:0;overflow:hidden;transition:max-height .35s ease,margin-top .25s ease}
+.faq-item.open .faq-a{max-height:200px;margin-top:10px}
+.faq-item.open .faq-chevron{transform:rotate(180deg)}
+
+/* ── CTA BAND ── */
+.cta-band{background:linear-gradient(135deg,var(--dg),#2A3045);padding:80px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(168,197,160,.06),transparent 65%)}
+.cta-band-inner{max-width:600px;margin:0 auto;position:relative;z-index:1}
+.cta-band h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:16px}
+.cta-band h2 em{color:var(--mint);font-style:italic}
+.cta-band p{font-size:14px;color:rgba(212,234,208,.55);margin-bottom:36px;line-height:1.8}
+.cta-split{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:start;margin-top:52px}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--olive)}
+.form-input,.form-textarea,.form-select{background:var(--cream);border:1px solid var(--bs);border-radius:12px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--td);outline:none;width:100%;transition:border-color .2s}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--olive)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-select{appearance:none;cursor:pointer}
+.form-submit{background:var(--dg);color:var(--mintl);border:none;border-radius:30px;padding:14px 32px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;letter-spacing:.04em;transition:all .22s;align-self:flex-start}
+.form-submit:hover{background:var(--forest);transform:translateY(-2px)}
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.ci-card{background:var(--cream);border:1px solid var(--bs);border-radius:16px;padding:24px}
+.ci-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--olive);margin-bottom:8px}
+.ci-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--dg);text-decoration:none;display:block;transition:color .2s}
+.ci-val:hover{color:var(--olive)}
+.ci-sub{font-size:12px;color:var(--tmuted);margin-top:2px}
+.availability-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(107,122,62,.12);border:1px solid rgba(107,122,62,.25);border-radius:20px;padding:7px 14px;font-size:12px;color:var(--olive)}
+.availability-dot{width:6px;height:6px;border-radius:50%;background:#5BA052;animation:pulse 2.5s infinite}
+
+/* ── FOOTER ── */
+footer{background:var(--td);padding:36px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--mint)}
+.foot-sub{font-size:11px;color:rgba(168,197,160,.3);margin-top:2px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{font-size:12px;color:rgba(168,197,160,.4);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--mint)}
+.foot-copy{font-size:11px;color:rgba(168,197,160,.25)}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .hero-inner,.about-grid,.contact-grid{grid-template-columns:1fr}
+  .test-grid,.testi-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .include-grid{grid-template-columns:1fr}
+  .process-track{grid-template-columns:1fr;gap:24px}
+  .process-track::before{display:none}
+  .proc-step{align-items:flex-start;text-align:left;flex-direction:row;gap:16px}
+  .proc-dot{flex-shrink:0;margin-bottom:0}
+  .hero-cards,.contact-info{display:none}
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .section{padding:72px 24px}
+  .hero{padding:90px 24px 72px}
+  .proof-strip{padding:24px}
+  .cta-band{padding:64px 24px}
+  footer{padding:28px 24px;flex-direction:column;align-items:flex-start}
+}
+@media(max-width:580px){
+  .test-grid,.testi-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Jocel Cubeta · AI QA</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact" class="nav-cta">Get Started</a>
+  </div>
+  <div class="nav-hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU (hidden) -->
+<div id="mobile-menu" style="display:none;position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(28,58,42,.98);padding:24px 24px 32px;border-bottom:1px solid rgba(168,197,160,.15)">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <a href="#about" onclick="closeMobileMenu()" style="font-size:14px;color:rgba(212,234,208,.7);text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(168,197,160,.1)">About</a>
+    <a href="#services" onclick="closeMobileMenu()" style="font-size:14px;color:rgba(212,234,208,.7);text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(168,197,160,.1)">Services</a>
+    <a href="#process" onclick="closeMobileMenu()" style="font-size:14px;color:rgba(212,234,208,.7);text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(168,197,160,.1)">Process</a>
+    <a href="#pricing" onclick="closeMobileMenu()" style="font-size:14px;color:rgba(212,234,208,.7);text-decoration:none;padding:10px 0;border-bottom:1px solid rgba(168,197,160,.1)">Pricing</a>
+    <a href="#contact" onclick="closeMobileMenu()" style="display:inline-flex;align-items:center;justify-content:center;background:var(--mint);color:var(--dg);font-size:13px;font-weight:500;padding:12px 24px;border-radius:30px;text-decoration:none;margin-top:16px">Get Started →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Now accepting new clients</div>
+      <h1>Your AI talks<br>to your customers.<br><em>Is it ready?</em></h1>
+      <p class="hero-sub">Done-for-you AI agent quality assurance for small businesses. I find the failures, security gaps, and brand mis-steps before your customers do — in plain English, in 7 days.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get a Free 15-Min Call →</a>
+        <a href="proposal.html" class="btn-ghost">View Sample Proposal</a>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="hcard accent">
+        <div class="hcard-label">Engagement at a Glance</div>
+        <div class="stat-row">
+          <div class="stat-block"><span class="stat-n">$499</span><div class="stat-l">Starting at</div></div>
+          <div class="stat-block"><span class="stat-n">7</span><div class="stat-l">Days Max</div></div>
+          <div class="stat-block"><span class="stat-n">3</span><div class="stat-l">Tiers</div></div>
+        </div>
+      </div>
+      <div class="hcard lav">
+        <div class="hcard-label">Built for</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:var(--lavl);line-height:1.5;font-style:italic">"Small businesses who launched an AI and want to know it actually works — without the $5,000 enterprise price tag."</div>
+      </div>
+      <div class="hcard">
+        <div class="hcard-label">What I test</div>
+        <div class="trust-row">
+          <span class="trust-chip">Factual Accuracy</span>
+          <span class="trust-chip">Security</span>
+          <span class="trust-chip">Brand Voice</span>
+          <span class="trust-chip">Escalation</span>
+          <span class="trust-chip">Prompt Injection</span>
+          <span class="trust-chip">Edge Cases</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-inner">
+    <span class="proof-label">Industries Served</span>
+    <div class="proof-items">
+      <span class="proof-item">E-commerce &amp; Retail</span>
+      <span class="proof-item">Health &amp; Wellness</span>
+      <span class="proof-item">Real Estate</span>
+      <span class="proof-item">Hospitality &amp; Booking</span>
+      <span class="proof-item">SaaS &amp; Tech Startups</span>
+      <span class="proof-item">Professional Services</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section white" id="about">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">About Jocel</div></div>
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <div class="about-img-box">
+          <div class="about-monogram">JC</div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-n">10+</div>
+          <div class="about-badge-l">Years in CX & QA</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <h3>A trained ear, a<br><em>security mindset</em></h3>
+        <p class="about-body">With over a decade in professional call center quality assurance, I know exactly what makes a conversation feel right — and what makes it go dangerously wrong. I bring that same trained instinct to AI agents.</p>
+        <p class="about-body">Most AI testing services charge enterprise prices and write reports for engineers. I work directly with small business owners: plain language, actionable findings, and results delivered in 7 days or less.</p>
+        <p class="about-body">I'm not affiliated with any AI platform, which means every finding I report is unbiased and written for you — not to protect a vendor's metrics.</p>
+        <ul class="about-quals">
+          <li class="about-qual">10+ years in call center QA &amp; customer experience</li>
+          <li class="about-qual">Specialised in conversational AI testing &amp; security</li>
+          <li class="about-qual">NDA signed before any credentials are shared</li>
+          <li class="about-qual">Reports written in plain English — zero jargon</li>
+          <li class="about-qual">Based in the Philippines · Available globally</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I TEST -->
+<section class="section cream" id="services">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">What I Test</div></div>
+    <div class="section-title">Six failure modes<br><em>I catch before your customers do</em></div>
+    <p class="section-lead">Every AI agent I test is evaluated across six dimensions — the same ones that cause real-world brand damage when left unchecked.</p>
+    <div class="test-grid reveal">
+      <div class="test-card">
+        <div class="test-icon">🎯</div>
+        <div class="test-title">Factual Accuracy</div>
+        <p class="test-body">Does it state the right prices, hours, policies, and product details? Or does it confidently guess when it doesn't know?</p>
+      </div>
+      <div class="test-card">
+        <div class="test-icon">🛡️</div>
+        <div class="test-title">Security & Prompt Injection</div>
+        <p class="test-body">Can it be tricked into revealing your system prompt, internal data, or other customers' information through adversarial inputs?</p>
+      </div>
+      <div class="test-card">
+        <div class="test-icon">🎙️</div>
+        <div class="test-title">Brand Voice & Tone</div>
+        <p class="test-body">Does it sound like your brand? Is it warm where it should be warm, firm where it should be firm? Does it stay on-character under pressure?</p>
+      </div>
+      <div class="test-card">
+        <div class="test-icon">💬</div>
+        <div class="test-title">Edge Cases & Unusual Inputs</div>
+        <p class="test-body">What happens when a customer types in another language, asks something completely off-topic, or sends a confusing multi-part question?</p>
+      </div>
+      <div class="test-card">
+        <div class="test-icon">📞</div>
+        <div class="test-title">Escalation & Fallback</div>
+        <p class="test-body">When the AI doesn't know, does it hand off gracefully — or does it keep improvising? Does it know when a human needs to step in?</p>
+      </div>
+      <div class="test-card">
+        <div class="test-icon">💡</div>
+        <div class="test-title">Policy Compliance</div>
+        <p class="test-body">Can it be talked into discounting, overriding rules, or making promises you didn't authorise? I test boundary-pushing conversations directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section dark" id="process">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">How It Works</div></div>
+    <div class="section-title">From kickoff to<br><em>delivered in 7 days</em></div>
+    <p class="section-lead">A clear, transparent process — no long onboarding, no steep learning curve, no waiting around.</p>
+    <div class="process-track reveal">
+      <div class="proc-step active">
+        <div class="proc-dot">01</div>
+        <div><div class="proc-title">Discovery Call</div><div class="proc-sub">We align on your AI, your goals, and your biggest worries.</div></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot">02</div>
+        <div><div class="proc-title">Test Design</div><div class="proc-sub">I build scenarios custom to your business and industry.</div></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot">03</div>
+        <div><div class="proc-title">Live Testing</div><div class="proc-sub">I test against your real, live AI — no disruption to your business.</div></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot">04</div>
+        <div><div class="proc-title">Report Delivery</div><div class="proc-sub">Full findings in plain English, with a prioritised action list.</div></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot">05</div>
+        <div><div class="proc-title">Re-Test & Sign-Off</div><div class="proc-sub">After your fixes, I re-run the failures and confirm resolution.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section white" id="pricing">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">Pricing</div></div>
+    <div class="section-title">Transparent pricing.<br><em>No surprises.</em></div>
+    <p class="section-lead">Three tiers designed for different stages of AI maturity. Most service businesses find Standard hits the perfect balance of depth and value.</p>
+    <div class="pricing-grid reveal">
+      <div class="price-card">
+        <div class="price-name">Basic</div>
+        <div class="price-num"><sup>$</sup>499</div>
+        <div class="price-tag">Ideal for pre-launch validation</div>
+        <hr class="price-div">
+        <ul class="price-feats">
+          <li class="price-feat">15 core test scenarios</li>
+          <li class="price-feat">Factual accuracy verification</li>
+          <li class="price-feat">Tone &amp; brand voice review</li>
+          <li class="price-feat">PDF summary report</li>
+          <li class="price-feat">Priority action list</li>
+          <li class="price-feat">15-minute review call</li>
+        </ul>
+        <a href="#contact" class="price-btn outline">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-rec">⭐ Recommended</div>
+        <div class="price-name">Standard</div>
+        <div class="price-num"><sup>$</sup>999</div>
+        <div class="price-tag">Best for active SMB deployments</div>
+        <hr class="price-div">
+        <ul class="price-feats">
+          <li class="price-feat">30 comprehensive test scenarios</li>
+          <li class="price-feat">Everything in Basic</li>
+          <li class="price-feat">Security &amp; prompt injection testing</li>
+          <li class="price-feat">Annotated conversation transcripts</li>
+          <li class="price-feat">Security assessment summary</li>
+          <li class="price-feat">30-minute consultation call</li>
+          <li class="price-feat">One round of re-testing</li>
+        </ul>
+        <a href="#contact" class="price-btn solid">Get Started</a>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Premium</div>
+        <div class="price-num"><sup>$</sup>1,999</div>
+        <div class="price-tag">Full-spectrum voice + chat coverage</div>
+        <hr class="price-div">
+        <ul class="price-feats">
+          <li class="price-feat">50+ scenarios, chat + voice AI</li>
+          <li class="price-feat">Everything in Standard</li>
+          <li class="price-feat">Advanced adversarial testing</li>
+          <li class="price-feat">60-minute strategy consultation</li>
+          <li class="price-feat">Two rounds of re-testing</li>
+          <li class="price-feat">30-day monitoring included</li>
+          <li class="price-feat">Video walkthrough of findings</li>
+        </ul>
+        <a href="#contact" class="price-btn outline">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="section cream">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">What You Receive</div></div>
+    <div class="section-title">Every deliverable,<br><em>explained clearly</em></div>
+    <p class="section-lead">No black-box reports. Every document is written for a business owner, actionable the same day, backed by verbatim evidence from your AI.</p>
+    <div class="include-grid reveal">
+      <div class="inc-card">
+        <div class="inc-head"><div class="inc-icon">📋</div><div><div class="inc-htitle">Comprehensive Test Report</div><div class="inc-hsub">PDF · Plain English · Same-Day Actionable</div></div></div>
+        <div class="inc-body"><ul class="inc-list">
+          <li class="inc-item">Executive summary in plain language</li>
+          <li class="inc-item">Scoring rubric across 6 performance categories</li>
+          <li class="inc-item">Issue breakdown with transcript evidence</li>
+          <li class="inc-item">Severity ratings: Critical / Important / Nice-to-have</li>
+          <li class="inc-item">Prioritised action plan ready to hand your developer</li>
+        </ul></div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-head"><div class="inc-icon">💬</div><div><div class="inc-htitle">Annotated Transcripts</div><div class="inc-hsub">Verbatim Records · Highlighted Moments</div></div></div>
+        <div class="inc-body"><ul class="inc-list">
+          <li class="inc-item">Verbatim record of every test scenario</li>
+          <li class="inc-item">Highlighted successes and failures with context</li>
+          <li class="inc-item">Notes explaining what went right or wrong</li>
+          <li class="inc-item">Evidence you can share directly with your developer</li>
+        </ul></div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-head"><div class="inc-icon">🔒</div><div><div class="inc-htitle">Security Assessment</div><div class="inc-hsub">Prompt Injection · Data Disclosure · Jailbreaks</div></div></div>
+        <div class="inc-body"><ul class="inc-list">
+          <li class="inc-item">Prompt injection test results</li>
+          <li class="inc-item">Data disclosure risk findings</li>
+          <li class="inc-item">Off-topic and jailbreak resistance scoring</li>
+          <li class="inc-item">Recommended security fixes in plain language</li>
+        </ul></div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-head"><div class="inc-icon">📞</div><div><div class="inc-htitle">Consultation Call + Re-Test</div><div class="inc-hsub">Live Walkthrough · Full Re-Run After Fixes</div></div></div>
+        <div class="inc-body"><ul class="inc-list">
+          <li class="inc-item">Live walkthrough of all findings</li>
+          <li class="inc-item">Q&amp;A — your specific questions answered</li>
+          <li class="inc-item">Re-run of all failed scenarios after your fixes</li>
+          <li class="inc-item">Confirmation report on resolved issues</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section dark">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">What Clients Say</div></div>
+    <div class="section-title">Trusted by small businesses<br><em>who take their AI seriously</em></div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-body">Jocel found three critical issues our internal team completely missed — including one that could have exposed customer data. The report was clear enough that our developer fixed everything in a single afternoon.</p>
+        <div class="testi-author">Sarah M.</div>
+        <div class="testi-biz">E-commerce Boutique Owner</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-body">I had no idea how easy it was for someone to trick my booking bot into making promises it shouldn't. Worth every dollar just to know what I was dealing with before the launch.</p>
+        <div class="testi-author">Marcus T.</div>
+        <div class="testi-biz">Hospitality & Short-Term Rentals</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-body">The annotated transcripts were a game-changer. I could show my developer exactly what the AI said, why it was wrong, and what to change. No back-and-forth, no confusion.</p>
+        <div class="testi-author">Priya K.</div>
+        <div class="testi-biz">Health & Wellness Studio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section white">
+  <div class="section-inner narrow">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">Common Questions</div></div>
+    <div class="section-title">Frequently asked<br><em>questions</em></div>
+    <div class="faq-list reveal">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span class="faq-qn">01</span><span>How is this different from asking my AI vendor to test it?</span><span class="faq-chevron">▾</span></div>
+        <p class="faq-a">Your vendor has a vested interest in saying their product works. I'm a neutral third party — I work for you, not the platform. Every finding is reported without bias, backed by verbatim evidence.</p>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span class="faq-qn">02</span><span>Do I need to take my AI offline during testing?</span><span class="faq-chevron">▾</span></div>
+        <p class="faq-a">No. I test against your live AI exactly as a customer would — without disrupting your real operations. Your business keeps running throughout.</p>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span class="faq-qn">03</span><span>What if you find major problems?</span><span class="faq-chevron">▾</span></div>
+        <p class="faq-a">Critical issues are flagged to you within 24 hours of discovery — you don't wait for the final report. I'll also recommend specific, achievable fixes in plain language your developer can act on immediately.</p>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span class="faq-qn">04</span><span>Will my data and conversations be kept confidential?</span><span class="faq-chevron">▾</span></div>
+        <p class="faq-a">Absolutely — and it's written into the agreement. NDA signed before any credentials are shared. Test recordings are retained for 90 days, then permanently deleted. Your business details are never used in marketing without your written permission.</p>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span class="faq-qn">05</span><span>What types of AI agents do you test?</span><span class="faq-chevron">▾</span></div>
+        <p class="faq-a">Chat-based agents (website widgets, WhatsApp, Instagram DMs, etc.) and voice AI agents. If your AI handles customer conversations in any channel, I can test it.</p>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span class="faq-qn">06</span><span>Can I upgrade tiers mid-engagement?</span><span class="faq-chevron">▾</span></div>
+        <p class="faq-a">Yes. If we start with Basic and find issues warranting deeper testing, you can upgrade to Standard or Premium and only pay the difference.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <h2>One incident pays<br>for this <em>many times over</em></h2>
+    <p>The math is simple: one prevented viral complaint, one blocked data leak, or one recovered booking covers this engagement many times over. The only real risk is not knowing.</p>
+    <div class="cta-split">
+      <a href="#contact" class="btn-primary">Book a Free Call →</a>
+      <a href="proposal.html" class="btn-ghost" style="color:rgba(168,197,160,.6);border-color:rgba(168,197,160,.3)">View Full Proposal</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="section cream" id="contact">
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eline"></div><div class="etxt">Get In Touch</div></div>
+    <div class="section-title">Let's talk about<br><em>your AI agent</em></div>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Business Name</label>
+            <input class="form-input" type="text" placeholder="Acme Co." required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="jane@yourbusiness.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Which Tier Are You Interested In?</label>
+          <select class="form-select form-input">
+            <option value="">Select a tier…</option>
+            <option>Basic — $499</option>
+            <option>Standard — $999 (Recommended)</option>
+            <option>Premium — $1,999</option>
+            <option>Not sure yet — let's talk</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tell Me About Your AI Agent</label>
+          <textarea class="form-textarea" placeholder="What platform is it on? What does it do? Any specific concerns?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+        <div id="form-success" style="display:none;font-size:13px;color:var(--olive);padding:8px 0">✓ Message sent! I'll be in touch within 24 hours.</div>
+      </form>
+      <div class="contact-info">
+        <div class="ci-card">
+          <div class="ci-label">Email</div>
+          <a href="mailto:info@workwithjocel.online" class="ci-val">info@workwithjocel.online</a>
+          <div class="ci-sub">Response within 24 hours</div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-label">WhatsApp / Phone</div>
+          <a href="tel:+639369458928" class="ci-val">+63 936 945 8928</a>
+          <div class="ci-sub">Philippines · Available globally</div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-label">Availability</div>
+          <div style="margin-top:4px"><span class="availability-pill"><span class="availability-dot"></span>Currently accepting new clients</span></div>
+          <div class="ci-sub" style="margin-top:10px">Typical turnaround: 7 days from kickoff</div>
+        </div>
+        <div class="ci-card" style="background:var(--dg);border-color:rgba(168,197,160,.18)">
+          <div class="ci-label" style="color:rgba(168,197,160,.45)">Not ready to commit?</div>
+          <a href="proposal.html" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--mintl);text-decoration:none;display:block;margin-top:6px">View the full proposal →</a>
+          <div style="font-size:12px;color:rgba(168,197,160,.4);margin-top:4px">Includes pricing, timeline, deliverables &amp; FAQ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="foot-brand">Jocel Cubeta · AI Agent Testing &amp; QA Services</div>
+    <div class="foot-sub">workwithjocel.online · info@workwithjocel.online · +63 936 945 8928</div>
+  </div>
+  <div class="foot-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="proposal.html">Client Proposal</a>
+    <a href="mailto:info@workwithjocel.online">Contact</a>
+  </div>
+  <div class="foot-copy">© 2025 Jocel Cubeta · All rights reserved · Confidentiality guaranteed</div>
+</footer>
+
+<script>
+// Mobile menu
+function toggleMobileMenu(){
+  const m=document.getElementById('mobile-menu');
+  m.style.display=m.style.display==='none'?'block':'none';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu').style.display='none';
+}
+
+// FAQ accordion
+function toggleFaq(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Contact form (mailto fallback)
+function handleSubmit(e){
+  e.preventDefault();
+  const name=e.target.querySelector('input[type="text"]').value;
+  const email=e.target.querySelector('input[type="email"]').value;
+  const tier=e.target.querySelector('select').value;
+  const msg=e.target.querySelector('textarea').value;
+  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\nTier: ${tier}\n\nMessage:\n${msg}`);
+  window.location.href=`mailto:info@workwithjocel.online?subject=AI QA Inquiry – ${encodeURIComponent(name)}&body=${body}`;
+  document.getElementById('form-success').style.display='block';
+}
+</script>
+</body>
+</html>
